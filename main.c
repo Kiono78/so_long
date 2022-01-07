@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:17:23 by x.y bterral       #+#    #+#             */
-/*   Updated: 2022/01/06 13:38:27 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/07 17:01:45 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,11 @@ int	main(int argc, char **argv)
 	if (open_map(argv[1], &mlx) == 0)
 		return (0);
 	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, mlx.x * 32, mlx.y * 32, "So long mate !");
 	init_img(&mlx);
+	mlx.win = mlx_new_window(mlx.ptr, mlx.x * 32, mlx.y * 32, "So long mate !");
 	build_map(&mlx);
-	mlx_loop(mlx.ptr);
+	mlx_hook(mlx.win, 2, 0, hook_manage_action, &mlx);
+	mlx_hook(mlx.win, 17, 0, hook_close, &mlx);
+	mlx.loop = mlx_loop(mlx.ptr);
 	return (0);
 }
-
-
-
-
-// while (mlx.y < mlx.y * 32)
-	// {
-	// 	mlx.x = 0;
-	// 	while (mlx.x < mlx.x * 32)
-	// 	{
-	// 		if ((mlx.x % 64) == 0 || (mlx.y % 64) == 0)
-	// 			mlx_put_image_to_window(mlx.ptr, mlx.win, mlx.img[0], mlx.x, mlx.y);
-	// 		else if ((mlx.x % 32) == 0 || (mlx.y % 32) == 0)
-	// 			mlx_put_image_to_window(mlx.ptr, mlx.win, mlx.img[1], mlx.x, mlx.y);
-	// 		mlx.x += 32;
-	// 	}
-	// 	mlx.y += 32;
-	// }

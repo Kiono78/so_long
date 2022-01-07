@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:25:58 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/06 14:31:29 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/07 12:07:23 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	is_not_full_walls(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] != '\n' && line[i])
+	while (line[i])
 	{
-		if (line[i] != '1')
+		if (line[i] != '1' && line[i] != '\n')
 			return (1);
 		i++;
 	}
