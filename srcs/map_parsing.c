@@ -6,32 +6,17 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:23:56 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/09 15:19:03 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/10 15:55:32 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	display_error_tiles(t_mlx *mlx)
-{
-	if (mlx->nb_player != 1)
-		return (parsing_error(6));
-	else if (mlx->nb_exit == 0)
-		return (parsing_error(7));
-	else if (mlx->nb_collectible == 0)
-		return (parsing_error(8));
-	else
-		return (1);
-}
-
 int	check_mandatory_tiles(t_mlx *mlx)
 {
 	int	i;
-
+	
 	i = 0;
-	mlx->nb_player = 0;
-	mlx->nb_exit = 0;
-	mlx->nb_collectible = 0;
 	while (mlx->map[i])
 	{
 		if (mlx->map[i] == 'P')
@@ -40,9 +25,13 @@ int	check_mandatory_tiles(t_mlx *mlx)
 			mlx->nb_exit++;
 		if (mlx->map[i] == 'C')
 			mlx->nb_collectible++;
+		if (mlx->map[i] != 'C' && mlx->map[i] != 'E' && mlx->map[i] != 'P'
+			&& mlx->map[i] != '0' && mlx->map[i] != '1' && mlx->map[i] != '\n')
+			mlx->nb_unknown_tile++;
 		i++;
 	}
-	if (mlx->nb_player == 0 || mlx->nb_exit == 0 || mlx->nb_collectible == 0)
+	if (mlx->nb_player == 0 || mlx->nb_exit == 0 || mlx->nb_collectible == 0
+		|| mlx->nb_unknown_tile > 0 || mlx->x >= 160 || mlx->y >= 90)
 	{
 		free(mlx->map);
 		mlx->map = NULL;
@@ -67,8 +56,7 @@ int	read_map(int fd, t_mlx *mlx)
 {
 	char	*current_line;
 
-	mlx->map = NULL;
-	mlx->y = 0;
+	initialize_mlx_count(&*mlx);
 	current_line = get_next_line(fd);
 	if (!current_line)
 		return (parsing_error(9));

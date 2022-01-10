@@ -6,54 +6,13 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:25:58 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/09 15:29:17 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/10 15:58:28 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	is_not_full_walls(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1' && line[i] != '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	is_not_full_walls_last_line(char *map)
-{
-	int	length;
-
-	length = ft_strlen(map);
-	length--;
-	while (map[length] && map[length] != '\n')
-	{
-		if (map[length] != '1')
-			return (1);
-		length--;
-	}
-	return (0);
-}
-
-int	is_not_wall_surrounded(char *line)
-{
-	if (*line != '1')
-		return (1);
-	line++;
-	while (*(line + 1) != '\n' && *(line + 1))
-		line++;
-	if (*line != '1')
-		return (1);
-	return (0);
-}
-
-size_t	ft_line_len(const char *str)
+int	ft_line_len(const char *str)
 {
 	size_t	count;
 
@@ -63,6 +22,16 @@ size_t	ft_line_len(const char *str)
 	while (str[count] && str[count] != '\n')
 		count++;
 	return (count);
+}
+
+void initialize_mlx_count(t_mlx *mlx)
+{
+	mlx->nb_player = 0;
+	mlx->nb_exit = 0;
+	mlx->nb_collectible = 0;
+	mlx->nb_unknown_tile = 0;
+	mlx->map = NULL;
+	mlx->y = 0;
 }
 
 int	parsing_error(int error_code)
@@ -88,5 +57,26 @@ int	parsing_error(int error_code)
 		printf("Map error: No collectible on the map !\n");
 	if (error_code == 9)
 		printf("Map error: Map is empty !\n");
+	if (error_code == 10)
+		printf("Map error: Unknown tile type on the map\n");
 	return (0);
+}
+
+int	display_error_tiles(t_mlx *mlx)
+{
+	if (mlx->nb_player != 1)
+		return (parsing_error(6));
+	else if (mlx->nb_exit == 0)
+		return (parsing_error(7));
+	else if (mlx->nb_collectible == 0)
+		return (parsing_error(8));
+	else if (mlx->nb_unknown_tile)
+		return (parsing_error(10));
+	else if (mlx->x >= 160 || mlx->y >= 90)
+	{
+		printf("Map error: the map is too big for a 5K screen");
+		return (0);
+	}
+	else
+		return (1);
 }
