@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:25:58 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/10 15:58:28 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/20 09:52:57 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_line_len(const char *str)
 	return (count);
 }
 
-void initialize_mlx_count(t_mlx *mlx)
+void	initialize_mlx_count(t_mlx *mlx)
 {
 	mlx->nb_player = 0;
 	mlx->nb_exit = 0;

@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 12:33:18 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/09 15:22:25 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/20 10:55:05 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,16 @@ int	hook_change_map(t_mlx *mlx, int new_pos, int old_pos)
 	{
 		mlx->map[new_pos] = 'P';
 		mlx->map[old_pos] = '0';
-		mlx_clear_window(mlx->ptr, mlx->win);
-		build_map(&*mlx);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img[3],
+			(new_pos % (mlx->x + 1)) * 32, (new_pos / (mlx->x + 1) * 32));
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img[0],
+			(old_pos % (mlx->x + 1)) * 32, (old_pos / (mlx->x + 1) * 32));
 	}
 	else
+	{
+		printf("You won in %d moves ! GG WP !\n", count);
 		hook_close(&*mlx);
+	}
 	return (1);
 }
 

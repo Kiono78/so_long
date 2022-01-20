@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:23:56 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/10 15:55:32 by bterral          ###   ########.fr       */
+/*   Updated: 2022/01/20 09:52:24 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_mandatory_tiles(t_mlx *mlx)
 {
 	int	i;
-	
+
 	i = 0;
 	while (mlx->map[i])
 	{
