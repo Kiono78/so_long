@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 15:35:08 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/20 09:53:04 by bterral          ###   ########.fr       */
+/*   Updated: 2022/02/21 13:52:54 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,12 @@ int	is_not_wall_surrounded(char *line)
 		line++;
 	if (*line != '1')
 		return (1);
+	return (0);
+}
+
+int	parsing_error2(int error_code)
+{
+	if (error_code == 11)
+		printf("Map error: Memory allocation failed during the map creation");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bterral <bterral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:25:58 by bterral           #+#    #+#             */
-/*   Updated: 2022/01/20 09:52:57 by bterral          ###   ########.fr       */
+/*   Updated: 2022/02/21 13:52:31 by bterral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parsing_error(int error_code)
 		printf("Map error: Map is empty !\n");
 	if (error_code == 10)
 		printf("Map error: Unknown tile type on the map\n");
-	return (0);
+	return (parsing_error2(error_code));
 }
 
 int	display_error_tiles(t_mlx *mlx)
@@ -72,11 +72,15 @@ int	display_error_tiles(t_mlx *mlx)
 		return (parsing_error(8));
 	else if (mlx->nb_unknown_tile)
 		return (parsing_error(10));
-	else if (mlx->x >= 160 || mlx->y >= 90)
-	{
-		printf("Map error: the map is too big for a 5K screen");
-		return (0);
-	}
 	else
 		return (1);
+}
+
+int	free_and_error(char **line, char **map, int code)
+{
+	if (*line)
+		free(*line);
+	if (*map)
+		free(*map);
+	return (parsing_error(code));
 }
